@@ -16,4 +16,6 @@ urlpatterns = [
     path('reserving-person/<str:pk>/', views.reservingPerson, name="reserving-person"),
     path('create-reserving-person/', views.createReservingPerson, name='create-reserving-person'),
     path('delete-reserving-person/<str:pk>/', views.deleteReservingPerson, name="delete-reserving-person"),
+    path('reservation', views.reservation, name="reservation")
 ]
+
