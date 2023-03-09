@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Room, Building
 from django.contrib.auth.models import User
-from .forms import BuildingForm, RoomForm
+from .forms import BuildingForm, RoomForm, ReservationForm
 
 
 # Create your views here.
@@ -73,6 +73,16 @@ def createBuilding(request):
             return redirect('buildings')
     context = {'form': form}
     return render(request, 'rooms/building_form.html', context)
+
+def reservation(request):
+    form = ReservationForm()
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('reservation')
+    context = {'form': form}
+    return render(request, 'rooms/reservation.html', context)
 
 
 def updateBuilding(request, pk):

@@ -1,7 +1,8 @@
+import datetime
 import uuid
 
 from django.db import models
-
+from django import forms
 
 class Building(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
@@ -22,3 +23,12 @@ class Room(models.Model):
 
     def __str__(self):
         return f"Sala o numerze {self.number}"
+
+class Reservation(models.Model):
+    id = models.UUIDField(default=uuid.uuid4(), unique=True, primary_key=True, editable=False)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE )
+    date = models.DateField()
+
+
+    def __str__(self):
+        return f"Rezerwacja o indentyfikatorze {self.id}"
