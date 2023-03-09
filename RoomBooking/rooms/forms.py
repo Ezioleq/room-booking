@@ -1,8 +1,7 @@
-from django.forms import ModelForm, DateField, CharField, ModelChoiceField
+from django.forms import ModelForm, CharField, IntegerField, BooleanField, ModelChoiceField, DateField
 from django.core.exceptions import ValidationError
-from .models import Building, Room, Reservation
+from .models import Building, Room, ReservingPerson, Reservation
 from django import forms
-
 
 def zip_code_validator(value):
     error_message = "Niepoprawny kod pocztowy"
@@ -39,11 +38,25 @@ class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
         fields = '__all__'
+
 class RoomForm(ModelForm):
     number = CharField(label='Numer')
     area = CharField(label='Powierzchnia w m2')
     building = ModelChoiceField(label='Budynek', queryset=Building.objects.all())
+    floor = IntegerField(label='Piętro')
+    capacity = IntegerField(label='Liczba miejsc')
+    equipment = CharField(label='Wyposażenie')
+    accessibility = BooleanField(label='Dostępność dla niepełnosprawnych')
 
     class Meta:
-        model = Reservation
+        model = Room
+        fields = '__all__'
+
+
+class ReservingPersonForm(ModelForm):
+    name = CharField(label='Imię')
+    surname = CharField(label='Nazwisko')
+
+    class Meta:
+        model = ReservingPerson
         fields = '__all__'
